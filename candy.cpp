@@ -116,7 +116,15 @@ NEFUNCTIONAL L si T
 */
 
 
-
+ //vertical de 5
+    for (int i = 0; i < R - 4; ++i) {
+        for (int j = 0; j < C; ++j) {
+            if (grid[i][j] != 0 && grid[i][j] == grid[i + 1][j] && grid[i][j] == grid[i + 2][j] && grid[i][j]==grid[i + 3][j]&& grid[i][j]==grid[i + 4][j]) {
+                punct += 10;
+                grid[i][j] = grid[i + 1][j] = grid[i + 2][j] =grid[i + 3][j]=grid[i+3][j]= 0; // inlocuire cu nimic
+            }
+        }
+    }
 
 
      //orizontal de 5
@@ -142,25 +150,9 @@ NEFUNCTIONAL L si T
     }
 
 
-    //orizontal de 3
-    for (int i = 0; i < R; ++i) {
-        for (int j = 0; j < C - 2; ++j) {
-            if (grid[i][j] != 0 && grid[i][j] == grid[i][j + 1] && grid[i][j] == grid[i][j + 2]) {
-                punct += 5;
-                grid[i][j] = grid[i][j + 1] = grid[i][j + 2] = 0; //inlocuire cu nimic
-            }
-        }
-    }
 
-    //vertical de 5
-    for (int i = 0; i < R - 4; ++i) {
-        for (int j = 0; j < C; ++j) {
-            if (grid[i][j] != 0 && grid[i][j] == grid[i + 1][j] && grid[i][j] == grid[i + 2][j] && grid[i][j]==grid[i + 3][j]&& grid[i][j]==grid[i + 4][j]) {
-                punct += 10;
-                grid[i][j] = grid[i + 1][j] = grid[i + 2][j] =grid[i + 3][j]=grid[i+3][j]= 0; // inlocuire cu nimic
-            }
-        }
-    }
+
+
 
     //vertical de 4
     for (int i = 0; i < R - 3; ++i) {
@@ -171,6 +163,17 @@ NEFUNCTIONAL L si T
             }
         }
     }
+
+    //orizontal de 3
+    for (int i = 0; i < R; ++i) {
+        for (int j = 0; j < C - 2; ++j) {
+            if (grid[i][j] != 0 && grid[i][j] == grid[i][j + 1] && grid[i][j] == grid[i][j + 2]) {
+                punct += 5;
+                grid[i][j] = grid[i][j + 1] = grid[i][j + 2] = 0; //inlocuire cu nimic
+            }
+        }
+    }
+
     //vertical de 3
     for (int i = 0; i < R - 2; ++i) {
         for (int j = 0; j < C; ++j) {
