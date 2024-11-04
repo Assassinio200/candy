@@ -37,36 +37,56 @@ void Vizual_Joc(vector<vector<int>>& grid) {
 int checkers(vector<vector<int>>& grid) {
     int punct = 0;
 
+/*
+// de L de 3
+    for (int i = 0; i < R; ++i) {
+        for (int j = 0; j < C - 2; ++j) {
+            if (grid[i][j] != 0 && grid[i][j] == grid[i][j+1] && grid[i][j] == grid[i][j+2] &&  grid[i][j] == grid[i+1][j +2]&&  grid[i][j] == grid[i+2][j+2]) {
+                punct += 20;
+                grid[i][j] = grid[i][j + 1] = grid[i][j + 2]=grid[i+1][j +2] =grid[i+2][j+2]= 0; //inlocuire cu nimic
+            }
+        }
+    }
+        //
+       //
+////////
 
-// de L de 3 -90%
+*/
+
+/*
+// de L de 3
     for (int i = 0; i < R; ++i) {
         for (int j = 0; j < C - 3; ++j) {
-            if (grid[i][j] != 0 && grid[i][j] == grid[i+1][j] && grid[i][j] == grid[i+2][j] &&  grid[i][j] == grid[i][j +1]&&  grid[i][j] == grid[i][j+2]) {
+            if (grid[i][j] != 0 && grid[i][j] == grid[i][j+1] && grid[i][j] == grid[i][j+2] &&  grid[i][j] == grid[i+1][j +2]&&  grid[i][j] == grid[i+2][j+2]) {
                 punct += 20;
-                grid[i][j] = grid[i][j + 1] = grid[i][j + 2]=grid[i][j +1] =grid[i][j+2]= 0; //inlocuire cu nimic
+                grid[i][j] = grid[i][j + 1] = grid[i][j + 2]=grid[i+1][j +2] =grid[i+2][j+2]= 0; //inlocuire cu nimic
+            }
+        }
+    }
+// // //
+      //
+      //
+      //
+
+
+// de L de 3
+    for (int i = 0; i < R; ++i) {
+        for (int j = 0; j < C - 2; ++j) {
+            if (grid[i][j] != 0 && grid[i][j] == grid[i+1][j] && grid[i][j] == grid[i+2][j] &&   grid[i][j] == grid[i][j+2]&&  grid[i][j] == grid[i][j+1]) {
+                punct += 20;
+                grid[i][j] = grid[i+1][j] = grid[i][j + 2]=grid[i][j +1] =grid[i+2][j]= 0; //inlocuire cu nimic
             }
         }
     }
 
+// // //
+//
+//
 
 
-
-// de L de 3 -180%
+// de L de 3
     for (int i = 0; i < R; ++i) {
-        for (int j = 0; j < C - 3; ++j) {
-            if (grid[i][j] != 0 && grid[i][j] == grid[i+1][j] && grid[i][j] == grid[i+2][j] &&  grid[i][j] == grid[i][j +1]&&  grid[i][j] == grid[i][j+2]) {
-                punct += 20;
-                grid[i][j] = grid[i][j + 1] = grid[i][j + 2]=grid[i][j +1] =grid[i][j+2]= 0; //inlocuire cu nimic
-            }
-        }
-    }
-
-
-
-
-// de L de 3 180%
-    for (int i = 0; i < R; ++i) {
-        for (int j = 0; j < C - 4; ++j) {
+        for (int j = 0; j < C - 2; ++j) {
             if (grid[i][j] != 0 && grid[i][j] == grid[i+1][j] && grid[i][j] == grid[i+2][j] &&  grid[i][j] == grid[i+2][j +1]&&  grid[i][j] == grid[i+2][j+2]) {
                 punct += 20;
                grid[i][j] = grid[i][j + 1] = grid[i][j + 2]=grid[i+2][j +1] =grid[i+2][j+2]= 0; //inlocuire nimic
@@ -74,7 +94,26 @@ int checkers(vector<vector<int>>& grid) {
         }
     }
 
+//
+//
+//
+// // //
 
+
+   // T
+    for (int i = 0; i < R; ++i) {
+        for (int j = 0; j < C - 3; ++j) {
+            if (grid[i][j] != 0 && grid[i][j] == grid[i][j + 1] && grid[i][j] == grid[i][j + 2] &&  grid[i][j] == grid[i+1][j + 2]&&  grid[i][j] == grid[i+2][j + 2]) {
+                punct += 30;
+                grid[i][j] = grid[i][j + 2] = grid[i][j + 1]=grid[i+1][j+2] =grid[i+1][j+2]= 0; //inlocuire cu nimic
+            }
+        }
+    }
+// // //
+  //
+  //
+NEFUNCTIONAL L si T
+*/
 
 
 
