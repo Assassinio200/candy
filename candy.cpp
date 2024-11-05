@@ -1,19 +1,22 @@
 #include <iostream>
 #include <vector>
-#include <cstdlib>
-#include <ctime>
+#include <cstdlib> //pt random
+#include <algorithm>
 
 using namespace std;
 
-const int R = 11,C = 11,bomb_tip = 4;
+const int R = 11, C = 11, bomb_tip = 4;
+
 ///////////////////////////INIT
 
 
 int randomB() {
-    return rand() % (bomb_tip + 1); //gen fructe
+    return rand() % (bomb_tip + 1); // bombo random
 }
 
 ///////////////////////////AFIS
+
+// Print the grid
 void printGrid(const vector<vector<int>>& grid) {
     for (int i = 0; i < R; ++i) {
         for (int j = 0; j < C; ++j) {
@@ -25,6 +28,8 @@ void printGrid(const vector<vector<int>>& grid) {
 }
 
 ///////////////////////////INIT-lista
+
+// Initialize the grid with random fruits
 void Vizual_Joc(vector<vector<int>>& grid) {
     for (int i = 0; i < R; ++i) {
         for (int j = 0; j < C; ++j) {
@@ -34,163 +39,108 @@ void Vizual_Joc(vector<vector<int>>& grid) {
 }
 
 //////////////////////////Conditii
+
 int checkers(vector<vector<int>>& grid) {
     int punct = 0;
 
-/*
-// de L de 3
+    ///orizontal 3,4,5
     for (int i = 0; i < R; ++i) {
         for (int j = 0; j < C - 2; ++j) {
-            if (grid[i][j] != 0 && grid[i][j] == grid[i][j+1] && grid[i][j] == grid[i][j+2] &&  grid[i][j] == grid[i+1][j +2]&&  grid[i][j] == grid[i+2][j+2]) {
-                punct += 20;
-                grid[i][j] = grid[i][j + 1] = grid[i][j + 2]=grid[i+1][j +2] =grid[i+2][j+2]= 0; //inlocuire cu nimic
-            }
-        }
-    }
-        //
-       //
-////////
+            if (grid[i][j] != 0) {
 
-*/
-
-/*
-// de L de 3
-    for (int i = 0; i < R; ++i) {
-        for (int j = 0; j < C - 3; ++j) {
-            if (grid[i][j] != 0 && grid[i][j] == grid[i][j+1] && grid[i][j] == grid[i][j+2] &&  grid[i][j] == grid[i+1][j +2]&&  grid[i][j] == grid[i+2][j+2]) {
-                punct += 20;
-                grid[i][j] = grid[i][j + 1] = grid[i][j + 2]=grid[i+1][j +2] =grid[i+2][j+2]= 0; //inlocuire cu nimic
-            }
-        }
-    }
-// // //
-      //
-      //
-      //
-
-
-// de L de 3
-    for (int i = 0; i < R; ++i) {
-        for (int j = 0; j < C - 2; ++j) {
-            if (grid[i][j] != 0 && grid[i][j] == grid[i+1][j] && grid[i][j] == grid[i+2][j] &&   grid[i][j] == grid[i][j+2]&&  grid[i][j] == grid[i][j+1]) {
-                punct += 20;
-                grid[i][j] = grid[i+1][j] = grid[i][j + 2]=grid[i][j +1] =grid[i+2][j]= 0; //inlocuire cu nimic
+                int len = 1;
+                while (j + len < C && grid[i][j] == grid[i][j + len]) {
+                    ++len;
+                }
+                if (len >= 3) {
+                                                    ///SCOR
+                    if (len == 3) {
+                        punct += 5;
+                    } else if (len == 4) {
+                        punct += 10;
+                    } else if (len == 5) {
+                        punct += 50;
+                    }
+                    for (int k = 0; k < len; ++k) {
+                        grid[i][j + k] = 0;  // curatare gasire
+                    }
+                }
             }
         }
     }
 
-// // //
-//
-//
+    /// Vertical 3,4,5
+    for (int j = 0; j < C; ++j) {
+        for (int i = 0; i < R - 2; ++i) {
+            if (grid[i][j] != 0) {
 
-
-// de L de 3
-    for (int i = 0; i < R; ++i) {
-        for (int j = 0; j < C - 2; ++j) {
-            if (grid[i][j] != 0 && grid[i][j] == grid[i+1][j] && grid[i][j] == grid[i+2][j] &&  grid[i][j] == grid[i+2][j +1]&&  grid[i][j] == grid[i+2][j+2]) {
-                punct += 20;
-               grid[i][j] = grid[i][j + 1] = grid[i][j + 2]=grid[i+2][j +1] =grid[i+2][j+2]= 0; //inlocuire nimic
+                int len = 1;
+                while (i + len < R && grid[i][j] == grid[i + len][j]) {
+                    ++len;
+                }
+                if (len >= 3) {
+                                                ///SCOR
+                    if (len == 3) {
+                        punct += 5;
+                    } else if (len == 4) {
+                        punct += 10;
+                    } else if (len == 5) {
+                        punct += 50;
+                    }
+                    for (int k = 0; k < len; ++k) {
+                        grid[i + k][j] = 0;  // curatare gasire
+                    }
+                }
             }
         }
     }
 
-//
-//
-//
-// // //
-
-
-   // T
-    for (int i = 0; i < R; ++i) {
-        for (int j = 0; j < C - 3; ++j) {
-            if (grid[i][j] != 0 && grid[i][j] == grid[i][j + 1] && grid[i][j] == grid[i][j + 2] &&  grid[i][j] == grid[i+1][j + 2]&&  grid[i][j] == grid[i+2][j + 2]) {
-                punct += 30;
-                grid[i][j] = grid[i][j + 2] = grid[i][j + 1]=grid[i+1][j+2] =grid[i+1][j+2]= 0; //inlocuire cu nimic
+    /// L T rotatii
+    auto VerForma = [&grid, &punct](int i, int j, vector<pair<int, int>> shape, int PctFormaa) {
+        bool valid = true;
+        for (const auto& [di, dj] : shape) {
+            if (i + di < 0 || i + di >= R || j + dj < 0 || j + dj >= C || grid[i + di][j + dj] == 0) {
+                valid = false;
+                break;
             }
         }
-    }
-// // //
-  //
-  //
-NEFUNCTIONAL L si T
-*/
-
-
- //vertical de 5
-    for (int i = 0; i < R - 4; ++i) {
-        for (int j = 0; j < C; ++j) {
-            if (grid[i][j] != 0 && grid[i][j] == grid[i + 1][j] && grid[i][j] == grid[i + 2][j] && grid[i][j]==grid[i + 3][j]&& grid[i][j]==grid[i + 4][j]) {
-                punct += 10;
-                grid[i][j] = grid[i + 1][j] = grid[i + 2][j] =grid[i + 3][j]=grid[i+3][j]= 0; // inlocuire cu nimic
+        if (valid) {
+            punct += PctFormaa; ///pct pe forme
+            for (const auto& [di, dj] : shape) {
+                grid[i + di][j + dj] = 0; // curaatre gasire
             }
         }
-    }
+    };
 
-
-     //orizontal de 5
-    for (int i = 0; i < R; ++i) {
-        for (int j = 0; j < C - 4; ++j) {
-            if (grid[i][j] != 0 && grid[i][j] == grid[i][j + 1] && grid[i][j] == grid[i][j + 2] &&  grid[i][j] == grid[i][j + 3]&&  grid[i][j] == grid[i][j + 4]) {
-                punct += 50;
-                grid[i][j] = grid[i][j + 1] = grid[i][j + 2]=grid[i][j+3] =grid[i][j + 4]= 0; //inlocuire cu nimic
-            }
-        }
-    }
-
-
-
-   //orizontal de 4
-    for (int i = 0; i < R; ++i) {
-        for (int j = 0; j < C - 3; ++j) {
-            if (grid[i][j] != 0 && grid[i][j] == grid[i][j + 1] && grid[i][j] == grid[i][j + 2] &&  grid[i][j] == grid[i][j + 3]) {
-                punct += 10;
-                grid[i][j] = grid[i][j + 1] = grid[i][j + 2]=grid[i][j+3] = 0; //inlocuire cu nimic
-            }
-        }
-    }
-
-
-
-
-
-
-    //vertical de 4
-    for (int i = 0; i < R - 3; ++i) {
-        for (int j = 0; j < C; ++j) {
-            if (grid[i][j] != 0 && grid[i][j] == grid[i + 1][j] && grid[i][j] == grid[i + 2][j] && grid[i][j]==grid[i + 3][j]) {
-                punct += 10;
-                grid[i][j] = grid[i + 1][j] = grid[i + 2][j] =grid[i + 3][j]= 0; // inlocuire cu nimic
-            }
-        }
-    }
-
-    //orizontal de 3
-    for (int i = 0; i < R; ++i) {
-        for (int j = 0; j < C - 2; ++j) {
-            if (grid[i][j] != 0 && grid[i][j] == grid[i][j + 1] && grid[i][j] == grid[i][j + 2]) {
-                punct += 5;
-                grid[i][j] = grid[i][j + 1] = grid[i][j + 2] = 0; //inlocuire cu nimic
-            }
-        }
-    }
-
-    //vertical de 3
+    /// L
     for (int i = 0; i < R - 2; ++i) {
-        for (int j = 0; j < C; ++j) {
-            if (grid[i][j] != 0 && grid[i][j] == grid[i + 1][j] && grid[i][j] == grid[i + 2][j]) {
-                punct += 5;
-                grid[i][j] = grid[i + 1][j] = grid[i + 2][j] = 0; // inlocuire cu nimic
-            }
+        for (int j = 0; j < C - 2; ++j) {
+VerForma(i, j, {{0, 0}, {1, 0}, {2, 0}, {2, 1}}, 20);  //  L
+   VerForma(i, j, {{0, 0}, {0, 1}, {0, 2}, {1, 0}}, 20);  // 90 L
+ VerForma(i, j, {{0, 0}, {1, 0}, {2, 0}, {0, 1}}, 20);  // 180 L
+            VerForma(i, j, {{0, 0}, {0, 1}, {0, 2}, {-1, 2}}, 20); // 270  L
         }
+    }
+
+    /// T
+    for (int i = 0; i < R - 2; ++i) {
+        for (int j = 0; j < C - 2; ++j) {
+VerForma(i, j, {{0, 0}, {1, 0}, {2, 0}, {1, 1}}, 30);  //  T
+  VerForma(i, j, {{0, 0}, {0, 1}, {0, 2}, {1, 1}}, 30);  // 90 T
+  VerForma(i, j, {{0, 0}, {1, 0}, {2, 0}, {1, -1}}, 30); // 180 T
+            VerForma(i, j, {{0, 0}, {0, 1}, {0, 2}, {-1, 1}}, 30); // 270 T
+        }
+
     }
 
     return punct;
 }
 
-////////////////////////////ADauga Full
+////////////////////////////ADauga bombo Full
+
 void AdaugaBoombo(vector<vector<int>>& grid) {
     for (int j = 0; j < C; ++j) {
-        int liber = R - 1; //
+        int liber = R - 1;
         for (int i = R - 1; i >= 0; --i) {
             if (grid[i][j] != 0) {
                 grid[liber][j] = grid[i][j];
@@ -203,48 +153,84 @@ void AdaugaBoombo(vector<vector<int>>& grid) {
     }
 }
 
-//simulare n jocuri
-void playGame(int rounds) {
+///////////////////////////Miscari
+
+// Swap de bombo
+void SchimbaBombo(vector<vector<int>>& grid, int i1, int j1, int i2, int j2) {
+    int temp = grid[i1][j1];
+    grid[i1][j1] = grid[i2][j2];
+    grid[i2][j2] = temp;
+}
+
+// miscari bombo
+int tryAllMoves(vector<vector<int>>& grid) {
+    int maxScore = 0;
+
+
+    for (int i = 0; i < R; ++i) {
+        for (int j = 0; j < C; ++j) {
+            if (j + 1 < C) {  // Swap dreapta
+                SchimbaBombo(grid, i, j, i, j + 1);
+                int score = checkers(grid);
+                maxScore = max(maxScore, score);
+                SchimbaBombo(grid, i, j, i, j + 1);  // reintoarcere
+            }
+            if (i + 1 < R) {  // Swap jos
+                SchimbaBombo(grid, i, j, i + 1, j);
+                int score = checkers(grid);
+                maxScore = max(maxScore, score);
+                SchimbaBombo(grid, i, j, i + 1, j);  // reintoarcerer
+            }
+        }
+    }
+
+    return maxScore;
+}
+
+////////////////////////////Main
+
+int main() {
+    int DeJucat;
+    cout << "Cate jocuri: ";
+    cin >> DeJucat;
+
     vector<vector<int>> grid(R, vector<int>(C));
-    srand(static_cast<unsigned int>(time(0))); // nr random
 
-    int totalpunct = 0;
+    int totalPoints = 0;
 
-    for (int round = 0; round < rounds; ++round) {
+    for (int runda = 0; runda < DeJucat; ++runda) {
+        if (totalPoints >= 10000) {
+            cout << "Stop ,scor maxim!" << endl;
+            break;
+        }
+
         Vizual_Joc(grid);
-        cout << "Tabel initial " << round + 1 << ":" << endl;
+        cout << "Tabel initial " << runda + 1 << ":" << endl;
         printGrid(grid);
 
-        int roundpunct = 0;
-        bool matchesFound;
+        int rundaPct = 0;
+        bool Gasiree;
 
-        //se joaca pana cand nu se mai poate
         do {
-            matchesFound = false;
+            Gasiree = false;
             int punct = checkers(grid);
             if (punct > 0) {
-                roundpunct += punct;
-                matchesFound = true;
-                AdaugaBoombo(grid); //noi fructe
+                rundaPct += punct;
+                Gasiree = true;
                 cout << "Tabel nou:" << endl;
                 printGrid(grid);
+                AdaugaBoombo(grid);
             }
-        } while (matchesFound);
+        } while (Gasiree);
 
-        totalpunct += roundpunct;
-        cout << "puncte pr runda " << round + 1 << ": " << roundpunct << endl;
+        totalPoints += rundaPct;
+        cout << "Total puncte per runda " << runda + 1 << ": " << rundaPct << endl;
         cout << "-----------------------------" << endl;
     }
 
-    cout << "Total puncte dupa " << rounds << "  runde: " << totalpunct << endl;
-}
-
-int main() {
-    int gamesToPlay;
-    cout << "Cate jocuri: ";
-    cin >> gamesToPlay;
-
-    playGame(gamesToPlay);
+    if (totalPoints < 10000) {
+        cout << "Total puncte : " << totalPoints << endl;
+    }
 
     return 0;
 }
